@@ -3,7 +3,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 
 
-const API_URL = "http://localhost:4000/api/quotes";
+const API_URL = "http://localhost:4000/quotes";
 
 const QuoteList = ({ refreshFlag }) => {
 
@@ -51,7 +51,7 @@ const QuoteList = ({ refreshFlag }) => {
 
   const startEdit = (quote) => {
     setEditId(quote.id);
-    setEditText(quote.text);
+    setEditText(quote.quote);
   };
 
   //save edit quote
@@ -63,7 +63,7 @@ const QuoteList = ({ refreshFlag }) => {
     }
     try {
       setLoading(true);
-      await axios.put(`${API_URL}/${editId}`, { text: editText });
+      await axios.put(`${API_URL}/${editId}`, { quote: editText });
       toast.success("Quote updated successfully!");
       setEditId(null);
       setEditText("");
@@ -131,7 +131,7 @@ const QuoteList = ({ refreshFlag }) => {
             </>
           ) : (
             <>
-              <p className='text-base w-3/4 font-bold text-gray-700 p-2'>{quote.text}</p>
+              <p className='text-base w-3/4 font-bold text-gray-700 p-2'>{quote.quote}</p>
               <button
                 className='w-20 border border-yellow-500 text-yellow-500 rounded-lg px-2 py-1 hover:bg-yellow-100'
                 onClick={() => startEdit(quote)}

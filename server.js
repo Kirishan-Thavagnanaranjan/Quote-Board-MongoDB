@@ -35,7 +35,12 @@ app.get("/", (req, res) => {
 app.get("/quotes", async (req, res) => {
   try {
     const quotes = await Quote.find().sort({ createdAt: -1 }); // Sort by creation date, newest first
-    res.json(quotes);
+    res.json(quotes.map(q => ({
+  id: q._id,
+  quote: q.quote,
+  createdAt: q.createdAt,
+  updatedAt: q.updatedAt
+  })));
   } catch (error) {
     res.status(500).json({ message: "Error fetching quotes" });
   }

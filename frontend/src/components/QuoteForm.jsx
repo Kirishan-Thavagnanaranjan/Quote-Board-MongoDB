@@ -2,7 +2,7 @@ import React from 'react'
 import toast from 'react-hot-toast';
 import axios from "axios";
 
-const API_URL = "http://localhost:4000/api/quotes";
+const API_URL = "http://localhost:4000/quotes";
 
 const QuoteForm = ({ onQuoteAdded }) => {
 
@@ -16,10 +16,10 @@ const QuoteForm = ({ onQuoteAdded }) => {
       toast.error("Please enter a quote.");
       return;
     }
-  
+
     try {
       setLoading(true);
-      await axios.post(API_URL, { text: quote });
+      await axios.post(API_URL, { quote: quote });
       toast.success("Quote added!");
       setQuote("");
       onQuoteAdded(); // Notify parent component to refresh quotes
@@ -33,7 +33,7 @@ const QuoteForm = ({ onQuoteAdded }) => {
     if (onQuoteAdded) onQuoteAdded();
   };
 
-  
+
 
 
   return (
@@ -49,7 +49,7 @@ const QuoteForm = ({ onQuoteAdded }) => {
         <button className='bg-rose-400 text-white font-bold py-2 px-4 rounded-lg mt-4 hover:bg-rose-500'
           onClick={handleClick}
           disabled={loading}>
-                {loading ? "Saving..." : "Add Quote"}</button>
+          {loading ? "Saving..." : "Add Quote"}</button>
       </form>
     </div>
   )
